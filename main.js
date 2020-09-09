@@ -50,10 +50,35 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}help`)) {
     help(message, serverQueue);
     return;
-  }else {
+  } else if (message.content.startsWith(`${prefix}write`)) {
+    help(message, serverQueue);
+    return;
+  } else {
     message.channel.send("You need to enter a valid command!");
   }
 });
+async function write(message, serverQueue) {
+    const args = message.content.split(" ");
+    var fs = require('fs');
+    fs.readFile('sayings.txt', function(err, data) {
+        if(err) throw err;
+        var allSayings = data.toString();
+        allSayings += "\n";
+        for (a of args) {
+            if (a.toString().trim() === '~write') {
+                continue;
+            } else {
+                allSayings += a.toString().trim();
+                allSayings += " ";
+            }
+        }
+        fs.writeFile('sayings.txt', allSayings, function (err) {
+            if (err) throw err;
+            console.log('Hello World > helloworld.txt');
+          });
+        return message.channel.send(allSayings);
+    });
+}
 async function help(message, serverQueue) {
     var commands = ["~play youtubeurl", "~skip", "~stop", "~volume 1-100",
                     "~pause", "~resume", "~list", "~mawty"];
