@@ -51,7 +51,7 @@ client.on("message", async message => {
     help(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}write`)) {
-    help(message, serverQueue);
+    write(message, serverQueue);
     return;
   } else {
     message.channel.send("You need to enter a valid command!");
