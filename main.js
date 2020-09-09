@@ -56,9 +56,9 @@ client.on("message", async message => {
     message.channel.send("You need to enter a valid command!");
   }
 });
-if (queue.get(message.guild.id).songs === []) {
-    queue.get(message.guild.id).connection.dispatcher.end()
-}
+// if (queue.get(message.guild.id).songs === []) {
+//     queue.get(message.guild.id).connection.dispatcher.end()
+// }
 async function help(message, serverQueue) {
     var commands = ["~play youtubeurl", "~skip", "~stop", "~volume 1-100",
                     "~pause", "~resume", "~list", "~mawty"];
