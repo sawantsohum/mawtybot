@@ -22,9 +22,8 @@ client.once("disconnect", () => {
 client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
-
   const serverQueue = queue.get(message.guild.id);
-
+  if (message.member.voice.channel.members === []) stop(message, serverQueue); 
   if (message.content.startsWith(`${prefix}play`)) {
     execute(message, serverQueue);
     return;
