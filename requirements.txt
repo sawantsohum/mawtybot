@@ -1,2 +1,4 @@
-
-npm install discord.js ffmpeg-binaries opusscript ytdl-core --save
+discord.js
+ytdl-core
+ffmpeg-binaries 
+opusscript 
