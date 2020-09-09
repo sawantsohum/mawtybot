@@ -53,7 +53,7 @@ client.on("message", async message => {
     message.channel.send("You need to enter a valid command!");
   }
 });
-async function mawty(message, serverQueue) {
+function mawty(message, serverQueue) {
     var sayings = ["https://media.discordapp.net/attachments/716964076852477965/752950166985769060/image0.png",
     "Damn imagine encountering such thing",
     "Should have just done the papa johns delivery",
@@ -61,7 +61,7 @@ async function mawty(message, serverQueue) {
     "Haha your baby is a BOY!! FUCKK we torched the place",
     "Good one broskie"];
     const random = Math.floor(Math.random() * sayings.length);
-    message.channel.send(sayings[random]);
+    return message.channel.send(sayings[random]);
 }
 async function list(message, serverQueue) {
     if (!serverQueue) message.channel.send('No music is being played rn you wop');
@@ -73,7 +73,7 @@ async function list(message, serverQueue) {
         .setColor('RANDOM')
         .setDescription(`**-=- Music Queue -=-**\n${songQueueString}\n\n🎵 **Currently Playing:** ${serverQueue.songs[0].title}`);
 
-    message.channel.send(embed);
+    return message.channel.send(embed);
 }
 async function resume(message, serverQueue) {
     if (serverQueue && !serverQueue.playing) {
