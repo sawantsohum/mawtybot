@@ -55,13 +55,13 @@ client.on("message", async message => {
 });
 async function mawty(message, serverQueue) {
     var fs = require('fs');
-    var array;
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
-        array = data.toString().split("\n");
+        var array = data.toString().split("\n");
+        const random = Math.floor(Math.random() * array.length);
+        return message.channel.send(array[random]);
     });
-    const random = Math.floor(Math.random() * array.length);
-    return message.channel.send(array[random]);
+    return message.channel.send("mawty don't wanna talk to nobody");
 }
 async function list(message, serverQueue) {
     if (!serverQueue) message.channel.send('No music is being played rn you wop');
