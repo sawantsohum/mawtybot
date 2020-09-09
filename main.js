@@ -47,13 +47,13 @@ client.on("message", async message => {
     list(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}mawty`)) {
-    list(message, serverQueue);
+    mawty(message, serverQueue);
     return;
   } else {
     message.channel.send("You need to enter a valid command!");
   }
 });
-function mawty(message, serverQueue) {
+async function mawty(message, serverQueue) {
     var sayings = ["https://media.discordapp.net/attachments/716964076852477965/752950166985769060/image0.png",
     "Damn imagine encountering such thing",
     "Should have just done the papa johns delivery",
@@ -61,7 +61,7 @@ function mawty(message, serverQueue) {
     "Haha your baby is a BOY!! FUCKK we torched the place",
     "Good one broskie"];
     const random = Math.floor(Math.random() * sayings.length);
-    return message.channel.send(sayings[1]);
+    return message.channel.send(sayings[random]);
 }
 async function list(message, serverQueue) {
     if (!serverQueue) message.channel.send('No music is being played rn you wop');
