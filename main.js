@@ -61,7 +61,7 @@ function mawty(message, serverQueue) {
     "Haha your baby is a BOY!! FUCKK we torched the place",
     "Good one broskie"];
     const random = Math.floor(Math.random() * sayings.length);
-    return message.channel.send(sayings[random]);
+    return message.channel.send(sayings[1]);
 }
 async function list(message, serverQueue) {
     if (!serverQueue) message.channel.send('No music is being played rn you wop');
