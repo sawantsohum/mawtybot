@@ -61,7 +61,7 @@ async function write(message, serverQueue) {
     const args = message.content.split(" ");
     var fs = require('fs');
     var leMessage = "";
-    var file_descriptor = fs.openSync("example.txt");
+    var file_descriptor = fs.openSync("sayings.txt");
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
         var allSayings = data.toString();
