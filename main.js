@@ -61,6 +61,7 @@ async function write(message, serverQueue) {
     const args = message.content.split(" ");
     var fs = require('fs');
     var leMessage = "";
+    var file_descriptor = fs.openSync("example.txt");
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
         var allSayings = data.toString();
@@ -78,7 +79,7 @@ async function write(message, serverQueue) {
         fs.writeFile('sayings.txt', allSayings, function (err) {
             if (err) throw err;
             console.log('Hello World > helloworld.txt');
-            fs.close(fs, function() {
+            fs.close(file_descriptor, function() {
                 console.log('wrote the file successfully');
             });
           });
