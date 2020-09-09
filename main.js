@@ -57,8 +57,16 @@ client.on("message", async message => {
   }
 });
 async function help(message, serverQueue) {
-    var commandList = "Full list of commands are \n ~play youtubelink \n ~skip \n ~stop \n ~volume (value 1-100) \n ~pause \n ~resume \n ~list to get the current queue of songs \n ~mawty if you wanna talk to your favorite bro\n";
-    return message.chanel.send("Full list of commands are \n ~play youtubelink \n ~skip \n ~stop \n ~volume (value 1-100) \n ~pause \n ~resume \n ~list to get the current queue of songs \n ~mawty if you wanna talk to your favorite bro\n");
+    var commands = ["~play youtubeurl", "~skip", "~stop", "~volume 1-100",
+                    "~pause", "~resume", "~list", "~mawty"];
+    var commandList = "";
+    for (a of commands) {
+        commandList += a +'\n';
+    }
+    let embed = new Discord.MessageEmbed()
+        .setColor('RANDOM')
+        .setDescription(`**-=- CommandList -=-**\n${commandList}\n\n`);
+    return message.channel.send(embed);
 }
 async function mawty(message, serverQueue) {
     var fs = require('fs');
