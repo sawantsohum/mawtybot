@@ -54,14 +54,14 @@ client.on("message", async message => {
   }
 });
 async function mawty(message, serverQueue) {
-    var sayings = ["https://media.discordapp.net/attachments/716964076852477965/752950166985769060/image0.png",
-    "Damn imagine encountering such thing",
-    "Should have just done the papa johns delivery",
-    "MY DAD IS HEATED AT MY CONSERVATIVE CATHOLIC AUNT",
-    "Haha your baby is a BOY!! FUCKK we torched the place",
-    "Good one broskie"];
-    const random = Math.floor(Math.random() * sayings.length);
-    return message.channel.send(sayings[random]);
+    var fs = require('fs');
+    var array;
+    fs.readFile('sayings.txt', function(err, data) {
+        if(err) throw err;
+        array = data.toString().split("\n");
+    });
+    const random = Math.floor(Math.random() * array.length);
+    return message.channel.send(array[random]);
 }
 async function list(message, serverQueue) {
     if (!serverQueue) message.channel.send('No music is being played rn you wop');
