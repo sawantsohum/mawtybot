@@ -58,7 +58,7 @@ client.on("message", async message => {
 });
 async function help(message, serverQueue) {
     var commandList = "Full list of commands are \n ~play youtubelink \n ~skip \n ~stop \n ~volume (value 1-100) \n ~pause \n ~resume \n ~list to get the current queue of songs \n ~mawty if you wanna talk to your favorite bro\n";
-    return message.chanel.send(commandList);
+    return message.chanel.send("Full list of commands are \n ~play youtubelink \n ~skip \n ~stop \n ~volume (value 1-100) \n ~pause \n ~resume \n ~list to get the current queue of songs \n ~mawty if you wanna talk to your favorite bro\n");
 }
 async function mawty(message, serverQueue) {
     var fs = require('fs');
