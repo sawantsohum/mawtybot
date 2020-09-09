@@ -49,10 +49,17 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}mawty`)) {
     mawty(message, serverQueue);
     return;
-  } else {
+  } else if (message.content.startsWith(`${prefix}help`)) {
+    help(message, serverQueue);
+    return;
+  }else {
     message.channel.send("You need to enter a valid command!");
   }
 });
+async function help(message, serverQueue) {
+    var commandList = "Full list of commands are \n ~play youtubelink \n ~skip \n ~stop \n ~volume (value 1-100) \n ~pause \n ~resume \n ~list to get the current queue of songs \n ~mawty if you wanna talk to your favorite bro\n";
+    return message.chanel.send(commandList);
+}
 async function mawty(message, serverQueue) {
     var fs = require('fs');
     fs.readFile('sayings.txt', function(err, data) {
@@ -61,7 +68,6 @@ async function mawty(message, serverQueue) {
         const random = Math.floor(Math.random() * array.length);
         return message.channel.send(array[random]);
     });
-    return message.channel.send("mawty don't wanna talk to nobody");
 }
 async function list(message, serverQueue) {
     if (!serverQueue) message.channel.send('No music is being played rn you wop');
