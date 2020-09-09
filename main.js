@@ -1,8 +1,11 @@
 const Discord = require("discord.js");
-const { prefix, token } = require("./config.json");
+//const { prefix, token } = require("./config.json");
 const ytdl = require("ytdl-core");
 
-const client = new Discord.Client();
+const client = new Discord.Client({
+    token: process.env.token,
+    prefix: process.env.prefix
+});
 
 const queue = new Map();
 
