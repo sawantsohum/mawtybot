@@ -60,7 +60,7 @@ client.on("message", async message => {
 async function write(message, serverQueue) {
     const args = message.content.split(" ");
     var fs = require('fs');
-    var message = "";
+    var leMessage = "";
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
         var allSayings = data.toString();
@@ -71,8 +71,8 @@ async function write(message, serverQueue) {
             } else {
                 allSayings += a.toString().trim();
                 allSayings += " ";
-                message += a.toString().trim();
-                message += " ";
+                leMessage += a.toString().trim();
+                leMessage += " ";
             }
         }
         fs.writeFile('sayings.txt', allSayings, function (err) {
@@ -82,8 +82,8 @@ async function write(message, serverQueue) {
                 console.log('wrote the file successfully');
             });
           });
-        message += " was added to my vocab my boi-o-pal";
-        return message.channel.send();
+          leMessage += " was added to my vocab my boi-o-pal";
+        return message.channel.send(leMessage);
     });
 }
 async function help(message, serverQueue) {
