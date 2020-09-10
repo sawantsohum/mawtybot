@@ -240,6 +240,6 @@ function play(guild, song) {
     })
     .on("error", error => console.error(error));
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-  serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+  serverQueue.textChannel.send(`Start playing: **${song.title}** \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3`);
 }
 client.login(token);
