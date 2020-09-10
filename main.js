@@ -9,6 +9,7 @@ global.secondRecent;
 global.recent;
 global.secondRecent = 0;
 global.recent = 0;
+global.recents = [];
 client.once("ready", () => {
   console.log("Ready!");
 });
@@ -107,9 +108,13 @@ async function mawty(message, serverQueue) {
         if(err) throw err;
         var array = data.toString().split("\n");
         var random = global.recent;
+        if (array.length - global.recents.length <= 20) {
+            global.recents = [];
+        }
         do {
             random = Math.floor(Math.random() * array.length);
-        } while (random === global.secondRecent || random === global.recent);
+        } while (global.recents.indexOf(random) > -1);
+        global.recents.push(random);
         global.secondRecent = global.recent;
         global.recent = random;
         return message.channel.send(array[random]);
