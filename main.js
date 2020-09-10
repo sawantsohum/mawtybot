@@ -106,7 +106,7 @@ async function mawty(message, serverQueue) {
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
         var array = data.toString().split("\n");
-        const random;
+        var random = global.recent;
         do {
             random = Math.floor(Math.random() * array.length);
         } while (random === global.secondRecent || random === global.recent);
