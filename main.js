@@ -5,8 +5,10 @@ const ytdl = require("ytdl-core");
 const client = new Discord.Client();
 
 const queue = new Map();
-
-
+global.secondRecent;
+global.recent;
+global.secondRecent = 0;
+global.recent = 0;
 client.once("ready", () => {
   console.log("Ready!");
 });
@@ -104,7 +106,12 @@ async function mawty(message, serverQueue) {
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
         var array = data.toString().split("\n");
-        const random = Math.floor(Math.random() * array.length);
+        const random;
+        do {
+            random = Math.floor(Math.random() * array.length);
+        } while (random === global.secondRecent || random === global.recent);
+        global.secondRecent = global.recent;
+        global.recent = random;
         return message.channel.send(array[random]);
     });
 }
