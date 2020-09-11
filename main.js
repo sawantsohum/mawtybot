@@ -178,7 +178,9 @@ async function execute(message, serverQueue) {
         if(err) throw err;
         dosth(playlist);
       });
-      for (item of promises.items) {
+      console.log(playlist);
+      console.log(promises);
+      for (item of playlist.items) {
         const song = {
             title: songInfo.title,
             url: songInfo.video_url
