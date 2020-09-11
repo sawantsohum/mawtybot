@@ -93,8 +93,9 @@ async function write(message, serverQueue) {
     });
 }
 async function help(message, serverQueue) {
-    var commands = ["~play youtubeurl", "~skip", "~stop", "~volume 1-100",
-                    "~pause", "~resume", "~list", "~mawty"];
+    var commands = ["~play youtubeurl or playlisturl (note that only the first 15 songs can be uploaded to the queue due to server load)", "~skip", "~stop", "~volume 1-100",
+                    "~pause", "~resume", "~list", "~mawty", "~write new sayings for martino",
+                "MAKE SURE TO ENTER ALL COMMANDS IN THE BOT COMMANDS CHANNEL U WOPS"];
     var commandList = "";
     for (a of commands) {
         commandList += a +'\n';
