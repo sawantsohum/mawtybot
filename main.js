@@ -182,8 +182,8 @@ async function execute(message, serverQueue) {
       console.log(promises);
       for (item of promises.items) {
         const song = {
-            title: songInfo.title,
-            url: songInfo.video_url
+            title: item.title,
+            url: item.url_simple
         };
         if (!serverQueue) {
             const queueContruct = {
