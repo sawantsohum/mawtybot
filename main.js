@@ -11,6 +11,7 @@ global.recent;
 global.secondRecent = 0;
 global.recent = 0;
 global.recents = [];
+global.constructedBruh = false;
 client.once("ready", () => {
   console.log("Ready!");
 });
@@ -186,7 +187,7 @@ async function execute(message, serverQueue) {
             title: item.title,
             url: item.url_simple
         };
-        if (!serverQueue) {
+        if (!serverQueue && !global.constructedBruh) {
             const queueContruct = {
               textChannel: message.channel,
               voiceChannel: voiceChannel,
@@ -209,6 +210,7 @@ async function execute(message, serverQueue) {
               queue.delete(message.guild.id);
               return message.channel.send(err);
             }
+            global.constructedBruh = true;
           } else {
             serverQueue.songs.push(song);
             //return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
@@ -245,6 +247,7 @@ async function execute(message, serverQueue) {
         queue.delete(message.guild.id);
         return message.channel.send(err);
       }
+      global.constructedBruh = true;
     } else {
       serverQueue.songs.push(song);
       return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
