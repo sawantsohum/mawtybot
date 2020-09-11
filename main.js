@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const { prefix, token } = require("./config.json");
 const ytdl = require("ytdl-core");
+const ytpl = require('ytpl');
 
 const client = new Discord.Client();
 
@@ -169,39 +170,81 @@ async function execute(message, serverQueue) {
       "I need the permissions to join and speak in your voice channel!"
     );
   }
+  const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
 
-  const songInfo = await ytdl.getInfo(args[1]);
-  const song = {
-    title: songInfo.title,
-    url: songInfo.video_url
-  };
-
-  if (!serverQueue) {
-    const queueContruct = {
-      textChannel: message.channel,
-      voiceChannel: voiceChannel,
-      connection: null,
-      songs: [],
-      volume: 5,
-      playing: true
-    };
-
-    queue.set(message.guild.id, queueContruct);
-
-    queueContruct.songs.push(song);
-
-    try {
-      var connection = await voiceChannel.join();
-      queueContruct.connection = connection;
-      play(message.guild, queueContruct.songs[0]);
-    } catch (err) {
-      console.log(err);
-      queue.delete(message.guild.id);
-      return message.channel.send(err);
-    }
+  if (pattern.test(args[1])) {
+      var playlist;
+      const promises = ytpl(args[1], function(err, playlist) {
+        if(err) throw err;
+        dosth(playlist);
+      });
+      for (item of promises.items) {
+        const song = {
+            title: songInfo.title,
+            url: songInfo.video_url
+        };
+        if (!serverQueue) {
+            const queueContruct = {
+              textChannel: message.channel,
+              voiceChannel: voiceChannel,
+              connection: null,
+              songs: [],
+              volume: 5,
+              playing: true
+            };
+        
+            queue.set(message.guild.id, queueContruct);
+        
+            queueContruct.songs.push(song);
+        
+            try {
+              var connection = await voiceChannel.join();
+              queueContruct.connection = connection;
+              play(message.guild, queueContruct.songs[0]);
+            } catch (err) {
+              console.log(err);
+              queue.delete(message.guild.id);
+              return message.channel.send(err);
+            }
+          } else {
+            serverQueue.songs.push(song);
+            return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
+          }
+      }
   } else {
-    serverQueue.songs.push(song);
-    return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
+    const songInfo = await ytdl.getInfo(args[1]);
+    const song = {
+      title: songInfo.title,
+      url: songInfo.video_url
+    };
+  
+    if (!serverQueue) {
+      const queueContruct = {
+        textChannel: message.channel,
+        voiceChannel: voiceChannel,
+        connection: null,
+        songs: [],
+        volume: 5,
+        playing: true
+      };
+  
+      queue.set(message.guild.id, queueContruct);
+  
+      queueContruct.songs.push(song);
+  
+      try {
+        var connection = await voiceChannel.join();
+        queueContruct.connection = connection;
+        play(message.guild, queueContruct.songs[0]);
+      } catch (err) {
+        console.log(err);
+        queue.delete(message.guild.id);
+        return message.channel.send(err);
+      }
+    } else {
+      serverQueue.songs.push(song);
+      return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
+    }
   }
 }
 
