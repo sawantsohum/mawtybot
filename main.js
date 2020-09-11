@@ -189,9 +189,11 @@ async function execute(message, serverQueue) {
       });
       console.log(playlist);
       console.log(promises);
-      var i =0;
-      do {
-        for (item of promises.items) {
+      var i = 0;
+      for (item of promises.items) {
+          if (i >= 15) {
+              break;
+          }
             const song = {
                 title: item.title,
                 url: item.url_simple
@@ -217,8 +219,7 @@ async function execute(message, serverQueue) {
               }
               i++;
           }
-      } while (i <= 15);
-      return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
+           return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
   } else {
     const songInfo = await ytdl.getInfo(args[1]);
     const song = {
