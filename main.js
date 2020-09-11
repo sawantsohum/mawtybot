@@ -189,32 +189,36 @@ async function execute(message, serverQueue) {
       });
       console.log(playlist);
       console.log(promises);
-      for (item of promises.items) {
-        const song = {
-            title: item.title,
-            url: item.url_simple
-        };
-        if (!serverQueue) {
-            queue.set(message.guild.id, queueContruct);
-        
-            queueContruct.songs.push(song);
-        
-            try {
-              var connection = await voiceChannel.join();
-              queueContruct.connection = connection;
-              play(message.guild, queueContruct.songs[0]);
-            } catch (err) {
-              console.log(err);
-              queue.delete(message.guild.id);
-              return message.channel.send(err);
-            }
-            global.constructedBruh = true;
-          } else {
-            queueContruct.songs.push(song);
-            //return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
+      var i =0;
+      do {
+        for (item of promises.items) {
+            const song = {
+                title: item.title,
+                url: item.url_simple
+            };
+            if (!serverQueue) {
+                queue.set(message.guild.id, queueContruct);
+            
+                queueContruct.songs.push(song);
+            
+                try {
+                  var connection = await voiceChannel.join();
+                  queueContruct.connection = connection;
+                  play(message.guild, queueContruct.songs[0]);
+                } catch (err) {
+                  console.log(err);
+                  queue.delete(message.guild.id);
+                  return message.channel.send(err);
+                }
+                global.constructedBruh = true;
+              } else {
+                queueContruct.songs.push(song);
+                //return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
+              }
+              i++;
           }
-      }
-      return message.channel.send("added playlist to queue daddy, ps wanna hang soon?");
+      } while (i <= 15);
+      return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
   } else {
     const songInfo = await ytdl.getInfo(args[1]);
     const song = {
