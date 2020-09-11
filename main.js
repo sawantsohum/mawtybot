@@ -173,6 +173,7 @@ async function execute(message, serverQueue) {
   const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
 
   if (pattern.test(args[1])) {
+      message.channel.send("inputing playlist, this might take a while, dont fuck anything up by spamming commands you fucking obese wop");
       var playlist;
       const promises = await ytpl(args[1], function(err, playlist) {
         if(err) throw err;
@@ -210,9 +211,10 @@ async function execute(message, serverQueue) {
             }
           } else {
             serverQueue.songs.push(song);
-            return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
+            //return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
           }
       }
+      return message.channel.send("added playlist to queue daddy, ps wanna hang soon?");
   } else {
     const songInfo = await ytdl.getInfo(args[1]);
     const song = {
