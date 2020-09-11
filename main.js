@@ -180,7 +180,7 @@ async function execute(message, serverQueue) {
       });
       console.log(playlist);
       console.log(promises);
-      for (item of playlist.items) {
+      for (item of promises.items) {
         const song = {
             title: songInfo.title,
             url: songInfo.video_url
