@@ -206,7 +206,7 @@ async function execute(message, serverQueue) {
                 try {
                   var connection = await voiceChannel.join();
                   queueContruct.connection = connection;
-                  play(message.guild, queueContruct.songs[0]);
+                  play(message.guild,message, queueContruct.songs[0]);
                 } catch (err) {
                   console.log(err);
                   queue.delete(message.guild.id);
@@ -236,7 +236,7 @@ async function execute(message, serverQueue) {
       try {
         var connection = await voiceChannel.join();
         queueContruct.connection = connection;
-        play(message.guild, queueContruct.songs[0]);
+        play(message.guild, message, queueContruct.songs[0]);
       } catch (err) {
         console.log(err);
         queue.delete(message.guild.id);
@@ -269,7 +269,7 @@ function stop(message, serverQueue) {
   serverQueue.connection.dispatcher.end();
 }
 
-function play(guild, song) {
+function play(guild,message, song) {
   const serverQueue = queue.get(guild.id);
   if (!song) {
     serverQueue.voiceChannel.leave();
@@ -281,12 +281,11 @@ function play(guild, song) {
     .play(ytdl(song.url))
     .on("finish", () => {
       serverQueue.songs.shift();
-      play(guild, serverQueue.songs[0]);
+      play(guild,message,serverQueue.songs[0]);
     })
     .on("error", error => console.error(error));
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-  var hehe = 23232;
-  list(hehe, serverQueue)
+  list(message, serverQueue)
   //serverQueue.textChannel.send(`Start playing: **${song.title}** \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3`);
 }
 client.login(token);
