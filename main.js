@@ -174,7 +174,7 @@ async function execute(message, serverQueue) {
 
   if (pattern.test(args[1])) {
       var playlist;
-      const promises = ytpl(args[1], function(err, playlist) {
+      const promises = await ytpl(args[1], function(err, playlist) {
         if(err) throw err;
         dosth(playlist);
       });
