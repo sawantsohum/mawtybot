@@ -172,7 +172,14 @@ async function execute(message, serverQueue) {
     );
   }
   const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
-
+  const queueContruct = {
+    textChannel: message.channel,
+    voiceChannel: voiceChannel,
+    connection: null,
+    songs: [],
+    volume: 5,
+    playing: true
+  };
   if (pattern.test(args[1])) {
       message.channel.send("inputing playlist, this might take a while, dont fuck anything up by spamming commands you fucking obese wop");
       var playlist;
@@ -187,16 +194,7 @@ async function execute(message, serverQueue) {
             title: item.title,
             url: item.url_simple
         };
-        if (!serverQueue && !global.constructedBruh) {
-            const queueContruct = {
-              textChannel: message.channel,
-              voiceChannel: voiceChannel,
-              connection: null,
-              songs: [],
-              volume: 5,
-              playing: true
-            };
-        
+        if (!serverQueue) {
             queue.set(message.guild.id, queueContruct);
         
             queueContruct.songs.push(song);
@@ -212,7 +210,7 @@ async function execute(message, serverQueue) {
             }
             global.constructedBruh = true;
           } else {
-            serverQueue.songs.push(song);
+            queueContruct.songs.push(song);
             //return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
           }
       }
@@ -225,14 +223,6 @@ async function execute(message, serverQueue) {
     };
   
     if (!serverQueue) {
-      const queueContruct = {
-        textChannel: message.channel,
-        voiceChannel: voiceChannel,
-        connection: null,
-        songs: [],
-        volume: 5,
-        playing: true
-      };
   
       queue.set(message.guild.id, queueContruct);
   
