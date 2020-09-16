@@ -167,6 +167,7 @@ async function volume(message, serverQueue) {
     return message.channel.send(`🎵 Volume has now been set to **${args[1]}/100**`);
 }
 async function execute(message, serverQueue) {
+  var responses = [];
   const args = message.content.split(" ");
   global.busy = true;
   const voiceChannel = message.member.voice.channel;
@@ -197,11 +198,11 @@ async function execute(message, serverQueue) {
       var playlist;
       global.busy = false;
       var i = 0;
-      var responses = [];
       ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
         var j = 0;
         do {
           responses[j] = resp.items[j];
+          console.log(responses[j]);
           j++;
         } while(j < resp.items.length);
       }).catch(console.error)
