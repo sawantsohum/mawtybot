@@ -199,9 +199,12 @@ async function execute(message, serverQueue) {
       var i = 0;
       var responses = [];
       ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
-      resp.items.forEach(function(item) {
-        responses.push(item);
-      })}).catch(console.error)
+        var j = 0;
+        do {
+          responses[j] = resp.items[j];
+          j++;
+        } while(j < resp.items.length);
+      }).catch(console.error)
       console.log(responses);
       for (item of responses) {
         console.log(item);
