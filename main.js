@@ -195,13 +195,14 @@ async function execute(message, serverQueue) {
   if (pattern.test(args[1])) {
       message.channel.send("inputing playlist, this might take a while, dont fuck anything up by spamming commands you fucking obese wop");
       var playlist;
+      global.busy = false;
       const promises = await ytpl(args[1], function(err, playlist) {
         if(err) {
           global.busy = false;
-          throw err;
-        } throw err;
+        } 
         dosth(playlist);
       });
+      global.busy = true;
       console.log(playlist);
       console.log(promises);
       var i = 0;
