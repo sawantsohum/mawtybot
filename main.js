@@ -199,9 +199,10 @@ async function execute(message, serverQueue) {
       var i = 0;
       var responses = [];
       ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
-      for (item of resp.items) {
+      resp.items.forEach(function(item) {
         responses.push(item);
-      }}).catch(console.error)
+      })}).catch(console.error)
+      console.leg(responses);
       for (item of responses) {
         console.log(item);
           if (i >= 15) {
