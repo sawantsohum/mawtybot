@@ -196,7 +196,10 @@ async function execute(message, serverQueue) {
       message.channel.send("inputing playlist, this might take a while, dont fuck anything up by spamming commands you fucking obese wop");
       var playlist;
       const promises = await ytpl(args[1], function(err, playlist) {
-        if(err) throw err;
+        if(err) {
+          global.busy = false;
+          throw err;
+        } throw err;
         dosth(playlist);
       });
       console.log(playlist);
