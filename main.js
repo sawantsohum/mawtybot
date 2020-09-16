@@ -199,10 +199,10 @@ async function execute(message, serverQueue) {
       global.busy = false;
       var i = 0;
       ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
-        responses = resp.items;
+        responses = JSON.parse(JSON.stringify(resp));
       }).catch(console.error)
       console.log(responses);
-      for (item of responses) {
+      for (item of responses.items) {
         console.log(item);
           if (i >= 15) {
               break;
