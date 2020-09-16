@@ -198,16 +198,11 @@ async function execute(message, serverQueue) {
       var playlist;
       global.busy = false;
       var i = 0;
-      ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
-        var j = 0;
-        do {
-          responses[j] = resp.items[j];
-          console.log(responses[j]);
-          j++;
-        } while(j < resp.items.length);
+      responses = ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
+        console.log("hehe");
       }).catch(console.error)
       console.log(responses);
-      for (item of responses) {
+      for (item of responses.items) {
         console.log(item);
           if (i >= 15) {
               break;
