@@ -200,7 +200,7 @@ async function execute(message, serverQueue) {
       var responses = [];
       ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
         console.log(resp);
-      for (items of resp.items) {
+      for (items of resp) {
         responses.push(items);
       }}).catch(console.error)
       console.log(responses);
