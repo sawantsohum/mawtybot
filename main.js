@@ -167,7 +167,7 @@ async function volume(message, serverQueue) {
     return message.channel.send(`🎵 Volume has now been set to **${args[1]}/100**`);
 }
 async function execute(message, serverQueue) {
-  var responses = [];
+  var responses;
   const args = message.content.split(" ");
   global.busy = true;
   const voiceChannel = message.member.voice.channel;
