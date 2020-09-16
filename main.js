@@ -30,42 +30,40 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   const serverQueue = queue.get(message.guild.id);
-  if (global.busy === true) return message.channel.send(`currently busy bud`) {
-
+  if (global.busy === true)  {
+    return message.channel.send(`currently busy bud`)
+  } else if (message.content.startsWith(`${prefix}play`)) {
+    execute(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}skip`)) {
+    skip(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}stop`)) {
+    stop(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}volume`)) {
+    volume(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}pause`)) {
+    pause(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}resume`)) {
+    resume(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}list`)) {
+    list(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}mawty`)) {
+    mawty(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}help`)) {
+    help(message, serverQueue);
+    return;
+  } else if (message.content.startsWith(`${prefix}write`)) {
+    write(message, serverQueue);
+    return;
   } else {
-    if (message.content.startsWith(`${prefix}play`)) {
-      execute(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}skip`)) {
-      skip(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}stop`)) {
-      stop(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}volume`)) {
-      volume(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}pause`)) {
-      pause(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}resume`)) {
-      resume(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}list`)) {
-      list(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}mawty`)) {
-      mawty(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}help`)) {
-      help(message, serverQueue);
-      return;
-    } else if (message.content.startsWith(`${prefix}write`)) {
-      write(message, serverQueue);
-      return;
-    } else {
-      message.channel.send("You need to enter a valid command!");
-    }
+    message.channel.send("You need to enter a valid command!");
   }
 });
 async function write(message, serverQueue) {
