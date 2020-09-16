@@ -198,7 +198,7 @@ async function execute(message, serverQueue) {
       global.busy = false;
       var i = 0;
       var responses = [];
-      ytpl(songurl).then(resp => {/* you can use the items in here via resp.items */
+      ytpl(args[1]).then(resp => {/* you can use the items in here via resp.items */
       for (items of resp.items) {
         responses.push(items);
       }}).catch(console.error)
