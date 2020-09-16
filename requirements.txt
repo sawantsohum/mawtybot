@@ -2,3 +2,4 @@ discord.js
 ytdl-core
 ffmpeg-binaries 
 opusscript 
+ytpl@latest
