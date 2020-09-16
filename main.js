@@ -13,6 +13,7 @@ global.secondRecent = 0;
 global.recent = 0;
 global.recents = [];
 global.constructedBruh = false;
+global.busy = false;
 client.once("ready", () => {
   console.log("Ready!");
 });
@@ -29,38 +30,42 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   const serverQueue = queue.get(message.guild.id);
-  if (message.content.startsWith(`${prefix}play`)) {
-    execute(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}skip`)) {
-    skip(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}stop`)) {
-    stop(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}volume`)) {
-    volume(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}pause`)) {
-    pause(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}resume`)) {
-    resume(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}list`)) {
-    list(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}mawty`)) {
-    mawty(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}help`)) {
-    help(message, serverQueue);
-    return;
-  } else if (message.content.startsWith(`${prefix}write`)) {
-    write(message, serverQueue);
-    return;
+  if (global.busy === true) return message.channel.send(`currently busy bud`) {
+
   } else {
-    message.channel.send("You need to enter a valid command!");
+    if (message.content.startsWith(`${prefix}play`)) {
+      execute(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}skip`)) {
+      skip(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}stop`)) {
+      stop(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}volume`)) {
+      volume(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}pause`)) {
+      pause(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}resume`)) {
+      resume(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}list`)) {
+      list(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}mawty`)) {
+      mawty(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}help`)) {
+      help(message, serverQueue);
+      return;
+    } else if (message.content.startsWith(`${prefix}write`)) {
+      write(message, serverQueue);
+      return;
+    } else {
+      message.channel.send("You need to enter a valid command!");
+    }
   }
 });
 async function write(message, serverQueue) {
@@ -107,6 +112,7 @@ async function help(message, serverQueue) {
     return message.channel.send(embed);
 }
 async function mawty(message, serverQueue) {
+  global.busy = true;
     var fs = require('fs');
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
@@ -121,8 +127,10 @@ async function mawty(message, serverQueue) {
         global.recents.push(random);
         global.secondRecent = global.recent;
         global.recent = random;
+        global.busy = false;
         return message.channel.send(array[random]);
     });
+    global.busy = false;
 }
 async function list(message, serverQueue) {
     if (!serverQueue) message.channel.send('No music is being played rn you wop');
@@ -133,7 +141,6 @@ async function list(message, serverQueue) {
     let embed = new Discord.MessageEmbed()
         .setColor('RANDOM')
         .setDescription(`**-=- Music Queue -=-**\n${songQueueString}\n\n🎵 **Currently Playing:** ${serverQueue.songs[0].title}`);
-
     return message.channel.send(embed);
 }
 async function resume(message, serverQueue) {
@@ -154,25 +161,30 @@ async function pause(message, serverQueue) {
 }
 async function volume(message, serverQueue) {
     const args = message.content.split(/ +/);
-    if (Number(args[1]) < 0 || Number(args[1]) > 100) return message.channel.send("Volume value must be in the range of 0-100");
+    if (Number(args[1]) < 0 || Number(args[1]) > 100) {
+      return message.channel.send("Volume value must be in the range of 0-100");
+    }
     serverQueue.volume = Number(args[1] / 100);
     serverQueue.connection.dispatcher.setVolumeLogarithmic(serverQueue.volume);
     return message.channel.send(`🎵 Volume has now been set to **${args[1]}/100**`);
 }
 async function execute(message, serverQueue) {
   const args = message.content.split(" ");
-
+  global.busy = true;
   const voiceChannel = message.member.voice.channel;
+  global.busy = false;
   if (!voiceChannel)
     return message.channel.send(
       "You need to be in a voice channel to play music!"
     );
+    global.busy = false;
   const permissions = voiceChannel.permissionsFor(message.client.user);
   if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
     return message.channel.send(
       "I need the permissions to join and speak in your voice channel!"
     );
   }
+  global.busy = true;
   const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
   const queueContruct = {
     textChannel: message.channel,
@@ -221,6 +233,7 @@ async function execute(message, serverQueue) {
               }
               i++;
           }
+          global.busy = false;
            return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
   } else {
     const songInfo = await ytdl.getInfo(args[1]);
@@ -242,14 +255,17 @@ async function execute(message, serverQueue) {
       } catch (err) {
         console.log(err);
         queue.delete(message.guild.id);
+        global.busy = false;
         return message.channel.send(err);
       }
       global.constructedBruh = true;
     } else {
       serverQueue.songs.push(song);
+      global.busy = false;
       return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
     }
   }
+  global.busy = false;
 }
 
 function skip(message, serverQueue) {
