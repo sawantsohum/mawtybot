@@ -202,7 +202,7 @@ async function execute(message, serverQueue) {
       resp.items.forEach(function(item) {
         responses.push(item);
       })}).catch(console.error)
-      console.leg(responses);
+      console.log(responses);
       for (item of responses) {
         console.log(item);
           if (i >= 15) {
