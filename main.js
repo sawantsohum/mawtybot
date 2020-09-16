@@ -202,6 +202,7 @@ async function execute(message, serverQueue) {
       for (items of resp.items) {
         responses.push(items);
       }}).catch(console.error)
+      console.log(responses);
       for (item of responses) {
           if (i >= 15) {
               break;
