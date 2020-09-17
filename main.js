@@ -30,11 +30,10 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   if (message.content.startsWith(`${prefix}restart`)) {
-    message.channel.send('Restarting...').then(m => {
-      client.destroy().then(() => {
-        client.login(token);
-      });
-    });
+    // send channel a message that you're resetting bot [optional]
+    message.channel.send('Resetting...')
+    .then(msg => client.destroy())
+    .then(() => client.login(token));
   }
   const serverQueue = queue.get(message.guild.id);
   if (global.busy === true)  {
