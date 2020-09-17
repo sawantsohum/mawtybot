@@ -65,10 +65,24 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}write`)) {
     write(message, serverQueue);
     return;
+  } else if (message.content.startsWith(`${prefix}shuffle`)) {
+    write(message, serverQueue);
+    return;
   } else {
     message.channel.send("You need to enter a valid command!");
   }
 });
+async function shuffle(message, serverQueue) {
+  if (serverQueue.songs.length < 3) {
+    list(message, serverQueue);
+  }
+  // Note the -2 (instead of -1) and the i > 1 (instead of i > 0):
+  for (let i = serverQueue.songs.length - 1; i > 1; --i) {
+    const j = 1 + Math.floor(Math.random() * i);
+    [serverQueue.songs[i], serverQueue.songs[j]] = [serverQueue.songs[j], serverQueue.songs[i]];
+  }
+  list(message, serverQueue);
+}
 async function restart(message, serverQueue) {
   // send channel a message that you're resetting bot [optional]
   if (serverQueue) {
@@ -112,6 +126,7 @@ async function write(message, serverQueue) {
 async function help(message, serverQueue) {
     var commands = ["~play youtubeurl or playlisturl (note that only the first 15 songs can be uploaded to the queue due to server load)", "~skip", "~stop", "~volume 1-100",
                     "~pause", "~resume", "~list", "~mawty", "~write new sayings for martino",
+                    "~restart to restart the bot", "~shuffle to shuffle the playlist, make sure you do not shuffle while uploading a playlist",
                 "MAKE SURE TO ENTER ALL COMMANDS IN THE BOT COMMANDS CHANNEL U WOPS"];
     var commandList = "";
     for (a of commands) {
