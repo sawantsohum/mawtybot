@@ -121,7 +121,7 @@ async function help(message, serverQueue) {
     return message.channel.send(embed);
 }
 async function mawty(message, serverQueue) {
-  global.busy = true;
+  //global.busy = true;
     var fs = require('fs');
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
@@ -194,7 +194,7 @@ async function execute(message, serverQueue) {
       "I need the permissions to join and speak in your voice channel!"
     );
   }
-  global.busy = true;
+  //global.busy = true;
   const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
   const queueContruct = {
     textChannel: message.channel,
@@ -310,8 +310,8 @@ function play(guild,message, song) {
     queue.delete(guild.id);
     return;
   }
-
-  const dispatcher = serverQueue.connection
+  if (ytdl.validateURL(song.url)) {
+    const dispatcher = serverQueue.connection
     .play(ytdl(song.url))
     .on("finish", () => {
       serverQueue.songs.shift();
@@ -319,6 +319,11 @@ function play(guild,message, song) {
     })
     .on("error", error => console.error(error));
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+  } else {
+    serverQueue.textChannel.send("Could not play " +song.url);
+    serverQueue.songs.shift();
+    play(guild,message,serverQueue.songs[0]);
+  }
   //list(message, serverQueue)
   //serverQueue.textChannel.send(`Start playing: **${song.title}** \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3`);
 }
