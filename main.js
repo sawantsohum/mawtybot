@@ -312,12 +312,7 @@ function play(guild,message, song) {
   }
 
   const dispatcher = serverQueue.connection
-    .play(ytdl(song.url).catch(err => {
-      console.log(err);
-      serverQueue.songs.shift();
-      play(guild,message,serverQueue.songs[0]);
-      return message.channel.send("invalid video"+err);
-    }))
+    .play(ytdl(song.url))
     .on("finish", () => {
       serverQueue.songs.shift();
       play(guild,message,serverQueue.songs[0]);
