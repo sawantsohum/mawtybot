@@ -71,8 +71,10 @@ client.on("message", async message => {
 });
 async function restart(message, serverQueue) {
   // send channel a message that you're resetting bot [optional]
-  serverQueue.connection.dispatcher.end();
-  serverQueue.songs = [];
+  if (serverQueue) {
+    serverQueue.connection.dispatcher.end();
+    serverQueue.songs = [];
+  }
   message.channel.send('Resetting, try to enter a command in 10 seconds')
   .then(msg => client.destroy())
   .then(() => client.login(token));
