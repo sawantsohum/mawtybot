@@ -234,7 +234,6 @@ async function execute(message, serverQueue) {
               }
               i++;
           }
-          list(message, serverQueue);
           global.busy = false;
            return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
   } else {
