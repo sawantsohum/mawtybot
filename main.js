@@ -169,7 +169,7 @@ async function volume(message, serverQueue) {
 async function execute(message, serverQueue) {
   var responses = [];
   const args = message.content.split(" ");
-  global.busy = true;
+  //global.busy = true;
   const voiceChannel = message.member.voice.channel;
   global.busy = false;
   if (!voiceChannel)
@@ -234,7 +234,7 @@ async function execute(message, serverQueue) {
           global.busy = false;
            return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
   } else {
-    const songInfo = await ytdl.getInfo(args[1]);
+    const songInfo = await ytdl.getInfo(args[1]).catch(console.error);
     const song = {
       title: songInfo.title,
       url: songInfo.video_url
