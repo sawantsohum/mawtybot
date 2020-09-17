@@ -198,7 +198,7 @@ async function execute(message, serverQueue) {
       var playlist;
       global.busy = false;
       var i = 0;
-      await ytpl(args[1]).then(resp => {
+      let responses = await ytpl(args[1]).then(resp => {
         responses = JSON.parse(JSON.stringify(resp));
       }).catch(console.error)
       console.log(responses);
