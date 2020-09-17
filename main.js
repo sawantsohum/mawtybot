@@ -198,7 +198,10 @@ async function execute(message, serverQueue) {
       var playlist;
       global.busy = false;
       var i = 0;
-      let responses = await ytpl(args[1]).catch(console.error);
+      let responses = await ytpl(args[1]).catch(err => {
+        console.log(err);
+        return message.channel.send("can't download video(s) data. probably wrong url. error: "+err);
+      });
       console.log(responses);
       for (item of responses.items) {
         console.log(item);
@@ -235,7 +238,10 @@ async function execute(message, serverQueue) {
           global.busy = false;
            return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
   } else {
-    const songInfo = await ytdl.getInfo(args[1]).catch(console.error);
+    const songInfo = await ytdl.getInfo(args[1]).catch(err => {
+      console.log(err);
+      return message.channel.send("can't download video(s) data. probably wrong url. error: "+err);
+    });
     const song = {
       title: songInfo.title,
       url: songInfo.video_url
