@@ -29,16 +29,13 @@ client.once("disconnect", () => {
 client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
-  if (message.content.startsWith(`${prefix}restart`)) {
-    // send channel a message that you're resetting bot [optional]
-    message.channel.send('Resetting...')
-    .then(msg => client.destroy())
-    .then(() => client.login(token));
-  }
   const serverQueue = queue.get(message.guild.id);
   if (global.busy === true)  {
     return message.channel.send(`currently busy bud`)
-  } else if (message.content.startsWith(`${prefix}play`)) {
+  } else if (message.content.startsWith(`${prefix}restart`)) {
+    restart(message, serverQueue);
+    return;
+  }else if (message.content.startsWith(`${prefix}play`)) {
     execute(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}skip`)) {
@@ -72,6 +69,12 @@ client.on("message", async message => {
     message.channel.send("You need to enter a valid command!");
   }
 });
+async function restart(message, serverQueue) {
+  // send channel a message that you're resetting bot [optional]
+  message.channel.send('Resetting...')
+  .then(msg => client.destroy())
+  .then(() => client.login(token));
+}
 async function write(message, serverQueue) {
     const args = message.content.split(" ");
     var fs = require('fs');
