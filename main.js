@@ -231,6 +231,7 @@ async function execute(message, serverQueue) {
               }
               i++;
           }
+          list(message, serverQueue);
           global.busy = false;
            return message.channel.send("added playlist to queue daddy, only added the first 15 songs were added due to server load \n ps wanna hang soon?");
   } else {
@@ -263,6 +264,7 @@ async function execute(message, serverQueue) {
       return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
     }
   }
+  list(message, serverQueue);
   global.busy = false;
 }
 
@@ -301,7 +303,7 @@ function play(guild,message, song) {
     })
     .on("error", error => console.error(error));
   dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-  list(message, serverQueue)
+  //list(message, serverQueue)
   //serverQueue.textChannel.send(`Start playing: **${song.title}** \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3`);
 }
 client.login(token);
