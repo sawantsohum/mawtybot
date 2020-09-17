@@ -226,7 +226,7 @@ async function execute(message, serverQueue) {
                 }
                 global.constructedBruh = true;
               } else {
-                queueContruct.songs.push(song);
+                serverQueue.songs.push(song);
                 //return message.channel.send(`${song.title} has been added to the queue! \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3 `);
               }
               i++;
