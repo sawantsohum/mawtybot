@@ -34,9 +34,7 @@ client.on("message", async message => {
       client.destroy().then(() => {
         client.login(token);
       });
-      message.channel.send("ready again");
     });
-    break;
   }
   const serverQueue = queue.get(message.guild.id);
   if (global.busy === true)  {
