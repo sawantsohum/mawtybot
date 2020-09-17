@@ -203,6 +203,7 @@ async function execute(message, serverQueue) {
       for (item of responses.items) {
         console.log(item);
           if (i >= 15) {
+            i = 0;
               break;
           }
             const song = {
