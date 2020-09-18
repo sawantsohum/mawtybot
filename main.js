@@ -73,15 +73,19 @@ client.on("message", async message => {
   }
 });
 async function shuffle(message, serverQueue) {
-  if (serverQueue.songs.length < 3) {
+  if (!serverQueue) {
+    return message.channel.send('No music is being played rn you wop');
+  } else {
+    if (serverQueue.songs.length < 3) {
+      list(message, serverQueue);
+    }
+    // Note the -2 (instead of -1) and the i > 1 (instead of i > 0):
+    for (let i = serverQueue.songs.length - 1; i > 0; --i) {
+      const j = 1 + Math.floor(Math.random() * i);
+      [serverQueue.songs[i], serverQueue.songs[j]] = [serverQueue.songs[j], serverQueue.songs[i]];
+    }
     list(message, serverQueue);
   }
-  // Note the -2 (instead of -1) and the i > 1 (instead of i > 0):
-  for (let i = serverQueue.songs.length - 1; i > 0; --i) {
-    const j = 1 + Math.floor(Math.random() * i);
-    [serverQueue.songs[i], serverQueue.songs[j]] = [serverQueue.songs[j], serverQueue.songs[i]];
-  }
-  list(message, serverQueue);
 }
 async function restart(message, serverQueue) {
   // send channel a message that you're resetting bot [optional]
