@@ -66,7 +66,7 @@ client.on("message", async message => {
     write(message, serverQueue);
     return;
   } else if (message.content.startsWith(`${prefix}shuffle`)) {
-    write(message, serverQueue);
+    shuffle(message, serverQueue);
     return;
   } else {
     message.channel.send("You need to enter a valid command!");
@@ -77,7 +77,7 @@ async function shuffle(message, serverQueue) {
     list(message, serverQueue);
   }
   // Note the -2 (instead of -1) and the i > 1 (instead of i > 0):
-  for (let i = serverQueue.songs.length - 1; i > 1; --i) {
+  for (let i = serverQueue.songs.length - 1; i > 0; --i) {
     const j = 1 + Math.floor(Math.random() * i);
     [serverQueue.songs[i], serverQueue.songs[j]] = [serverQueue.songs[j], serverQueue.songs[i]];
   }
