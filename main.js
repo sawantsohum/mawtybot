@@ -163,7 +163,7 @@ async function mawty(message, serverQueue) {
     global.busy = false;
 }
 async function list(message, serverQueue) {
-    if (!serverQueue) message.channel.send('No music is being played rn you wop');
+    if (!serverQueue) return message.channel.send('No music is being played rn you wop');
     var songQueueString = "";
     for (songIn of serverQueue.songs) {
         songQueueString += songIn.title +'\n';
@@ -190,6 +190,7 @@ async function pause(message, serverQueue) {
     return message.channel.send(`No music is playing dumb fuck`);
 }
 async function volume(message, serverQueue) {
+  if (serverQueue && serverQueue.playing) {
     const args = message.content.split(/ +/);
     if (Number(args[1]) < 0 || Number(args[1]) > 100) {
       return message.channel.send("Volume value must be in the range of 0-100");
@@ -197,6 +198,7 @@ async function volume(message, serverQueue) {
     serverQueue.volume = Number(args[1] / 100);
     serverQueue.connection.dispatcher.setVolumeLogarithmic(serverQueue.volume);
     return message.channel.send(`🎵 Volume has now been set to **${args[1]}/100**`);
+  }
 }
 async function execute(message, serverQueue) {
   var responses = [];
