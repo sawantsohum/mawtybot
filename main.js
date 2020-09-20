@@ -228,7 +228,7 @@ async function execute(message, serverQueue) {
     volume: 5,
     playing: true
   };
-  if (pattern.test(args[1])) {
+  if (args[1].toLowerCase().indexOf("playlist") === -1) {
       message.channel.send("inputing playlist, this might take a while, dont fuck anything up by spamming commands you fucking obese wop");
       var playlist;
       global.busy = false;
