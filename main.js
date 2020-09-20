@@ -231,7 +231,7 @@ async function execute(message, serverQueue) {
     playing: true
   };
   console.log("the url is:" + args[1]);
-  if (urlValid) {
+  if (ytpl.validateID(url)) {
       message.channel.send("inputing playlist, this might take a while, dont fuck anything up by spamming commands you fucking obese wop");
       var playlist;
       global.busy = false;
