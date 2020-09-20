@@ -220,6 +220,8 @@ async function execute(message, serverQueue) {
   }
   //global.busy = true;
   const pattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
+  const url = args[1];
+  const urlValid = pattern.test(url);
   const queueContruct = {
     textChannel: message.channel,
     voiceChannel: voiceChannel,
@@ -228,8 +230,8 @@ async function execute(message, serverQueue) {
     volume: 5,
     playing: true
   };
-  console.log(args[1]);
-  if (args[1].toLowerCase().indexOf("playlist") === -1) {
+  console.log("the url is:" + args[1]);
+  if (urlValid) {
       message.channel.send("inputing playlist, this might take a while, dont fuck anything up by spamming commands you fucking obese wop");
       var playlist;
       global.busy = false;
