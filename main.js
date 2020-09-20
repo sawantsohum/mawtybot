@@ -143,7 +143,7 @@ async function help(message, serverQueue) {
     return message.channel.send(embed);
 }
 async function mawty(message, serverQueue) {
-  //global.busy = true;
+  //global.busy = true;/
     var fs = require('fs');
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
