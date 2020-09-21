@@ -354,7 +354,7 @@ function play(guild,message, song) {
       play(guild,message,serverQueue.songs[0]);
     })
     .on("error", error => console.error(error));
-  dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+  dispatcher.setVolumeLogarithmic(serverQueue.volume);
   } else {
     serverQueue.textChannel.send("Could not play " +song.url);
     serverQueue.songs.shift();
