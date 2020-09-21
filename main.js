@@ -236,7 +236,7 @@ async function execute(message, serverQueue) {
     voiceChannel: voiceChannel,
     connection: null,
     songs: [],
-    volume: 1,
+    volume: 10/100,
     playing: true
   };
   console.log("the url is:" + args[1]);
