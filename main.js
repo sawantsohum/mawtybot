@@ -4,6 +4,15 @@ const ytdl = require("ytdl-core");
 const ytpl = require('ytpl');
 const prefix = "~";
 const token = process.env.token;
+
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+pool.connect();
 const client = new Discord.Client();
 
 const queue = new Map();
@@ -227,7 +236,7 @@ async function execute(message, serverQueue) {
     voiceChannel: voiceChannel,
     connection: null,
     songs: [],
-    volume: 5,
+    volume: 1,
     playing: true
   };
   console.log("the url is:" + args[1]);
