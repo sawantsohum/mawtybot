@@ -82,8 +82,11 @@ client.on("message", async message => {
   } else if (rando > 6) {
     mawty(message, serverQueue);
     return;
-  } else {
+  } else if(message.content.startsWith(`${prefix}`)){
     message.channel.send("You need to enter a valid command!");
+    return;
+  } else {
+    return;
   }
 });
 async function shuffle(message, serverQueue) {
