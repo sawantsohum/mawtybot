@@ -41,9 +41,7 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   const serverQueue = queue.get(message.guild.id);
-  if (rando === 6) {
-    mawty(message, serverQueue);
-  } else if (global.busy === true)  {
+  if (global.busy === true)  {
     return message.channel.send(`currently busy bud`)
   } else if (message.content.startsWith(`${prefix}restart`)) {
     restart(message, serverQueue);
@@ -80,6 +78,9 @@ client.on("message", async message => {
     return;
   } else if (message.content.startsWith(`${prefix}shuffle`)) {
     shuffle(message, serverQueue);
+    return;
+  } else if (rando == 6) {
+    mawty(message, serverQueue);
     return;
   } else {
     message.channel.send("You need to enter a valid command!");
