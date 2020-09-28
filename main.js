@@ -79,7 +79,7 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}shuffle`)) {
     shuffle(message, serverQueue);
     return;
-  } else if (rando == 6) {
+  } else if (rando > 6) {
     mawty(message, serverQueue);
     return;
   } else {
