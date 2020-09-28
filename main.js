@@ -382,7 +382,7 @@ function leftToEight(){
   return (-d + d.setHours(8,0,0,0));
 }
 function sendMessage(){
-  var guild = '716964076852477962';
+  var guild = client.guilds.get('716964076852477962');
   if(guild && guild.channels.get('753053422013644811')){
     var fs = require('fs');
     fs.readFile('sayings.txt', function(err, data) {
