@@ -39,7 +39,9 @@ client.on("message", async message => {
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   const serverQueue = queue.get(message.guild.id);
-  if (global.busy === true)  {
+  if (message.author.username === "zohum#8484") {
+    mawty(message, serverQueue);
+  } else if (global.busy === true)  {
     return message.channel.send(`currently busy bud`)
   } else if (message.content.startsWith(`${prefix}restart`)) {
     restart(message, serverQueue);
