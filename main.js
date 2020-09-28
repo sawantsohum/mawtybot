@@ -36,10 +36,12 @@ client.once("disconnect", () => {
 });
 
 client.on("message", async message => {
+  var rando = Math.floor(Math.random() * 8);
+  console.log(rando);
   if (message.author.bot) return;
   if (!message.content.startsWith(prefix)) return;
   const serverQueue = queue.get(message.guild.id);
-  if (message.author.username === "zohum#8484") {
+  if (rando === 6) {
     mawty(message, serverQueue);
   } else if (global.busy === true)  {
     return message.channel.send(`currently busy bud`)
