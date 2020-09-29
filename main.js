@@ -386,10 +386,12 @@ function sendMessage(){
   for (guild of client.guilds) {
     if (guild.id == '716964076852477962') currGuild = guild;
   }
+  console.log("guild" + currGuild);
   var curreChannel;
   for (channel of currGuild.channels) {
     if (channel.id == '753053422013644811') curreChannel = channel;
   }
+  console.log("channel" +curreChannel);
   if(curreChannel && currGuild){
     var fs = require('fs');
     fs.readFile('sayings.txt', function(err, data) {
