@@ -382,8 +382,15 @@ function leftToEight(){
   return (-d + d.setHours(8,0,0,0));
 }
 function sendMessage(){
-  var guild = client.guilds.get('716964076852477962');
-  if(guild && guild.channels.get('753053422013644811')){
+  var currGuild;
+  for (guild of client.guilds) {
+    if (guild.id == '716964076852477962') currGuild = guild;
+  }
+  var curreChannel;
+  for (channel of currGuild.channels) {
+    if (channel.id == '753053422013644811') curreChannel = channel;
+  }
+  if(curreChannel && currGuild){
     var fs = require('fs');
     fs.readFile('sayings.txt', function(err, data) {
         if(err) throw err;
@@ -399,7 +406,7 @@ function sendMessage(){
         global.secondRecent = global.recent;
         global.recent = random;
         global.busy = false;
-        return guild.channels.get('753053422013644811').send(array[random]);
+        return curreChannel.send(array[random]);
     });
   }
 
