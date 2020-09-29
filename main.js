@@ -30,6 +30,7 @@ client.once("ready", () => {
     var dayMillseconds = 4;
     setInterval(function(){ // repeat this every 24 hours
         sendMessage();
+        console.log("msg sent");
     }, dayMillseconds)
 }, leftToEight())
 });
