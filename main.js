@@ -25,14 +25,6 @@ global.constructedBruh = false;
 global.busy = false;
 client.once("ready", () => {
   console.log("Ready!");
-  setTimeout(function(){ // in leftToEight() milliseconds run this:
-    sendMessage(); // send the message once
-    var dayMillseconds = 4;
-    setInterval(function(){ // repeat this every 24 hours
-        sendMessage();
-        console.log("msg sent");
-    }, dayMillseconds)
-}, leftToEight())
 });
 
 client.once("reconnecting", () => {
@@ -377,41 +369,5 @@ function play(guild,message, song) {
   }
   //list(message, serverQueue)
   //serverQueue.textChannel.send(`Start playing: **${song.title}** \n make sure to enter ~stop once you are done listening to music to save on server costs :) <3`);
-}
-function leftToEight(){
-  var d = new Date();
-  return (-d + d.setHours(8,0,0,0));
-}
-function sendMessage(){
-  var currGuild;
-  for (guild of client.guilds) {
-    if (guild.id == '716964076852477962') currGuild = guild;
-  }
-  console.log("guild" + currGuild);
-  var curreChannel;
-  for (channel of currGuild.channels) {
-    if (channel.id == '753053422013644811') curreChannel = channel;
-  }
-  console.log("channel" +curreChannel);
-  if(curreChannel && currGuild){
-    var fs = require('fs');
-    fs.readFile('sayings.txt', function(err, data) {
-        if(err) throw err;
-        var array = data.toString().split("\n");
-        var random = global.recent;
-        if (array.length - global.recents.length <= 20) {
-            global.recents = [];
-        }
-        do {
-            random = Math.floor(Math.random() * array.length);
-        } while (global.recents.indexOf(random) > -1);
-        global.recents.push(random);
-        global.secondRecent = global.recent;
-        global.recent = random;
-        global.busy = false;
-        return curreChannel.send(array[random]);
-    });
-  }
-
 }
 client.login(token);
