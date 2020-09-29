@@ -27,7 +27,7 @@ client.once("ready", () => {
   console.log("Ready!");
   setTimeout(function(){ // in leftToEight() milliseconds run this:
     sendMessage(); // send the message once
-    var dayMillseconds = 10000;
+    var dayMillseconds = 4;
     setInterval(function(){ // repeat this every 24 hours
         sendMessage();
     }, dayMillseconds)
