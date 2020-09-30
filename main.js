@@ -36,7 +36,7 @@ client.once("disconnect", () => {
 });
 
 client.on("message", async message => {
-  var rando = Math.floor(Math.random() * 8);
+  var rando = Math.floor(Math.random() * 15);
   if (message.author.bot) return;
   //if (!message.content.startsWith(prefix)) return;
   const serverQueue = queue.get(message.guild.id);
