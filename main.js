@@ -170,7 +170,7 @@ async function speak(message) {
       e++;
       continue;
     }
-    stringy += arg;
+    stringy += arg + " ";
     
   }
   return client.channels.cache.get('716964076852477965').send(stringy);
