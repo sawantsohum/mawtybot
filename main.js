@@ -164,7 +164,7 @@ async function help(message, serverQueue) {
 async function speak(message) {
   var msg = "" + message;
   msg.replace('~speak', "");
-  return client.channels.cache.get('716964076852477965').send(message);
+  return client.channels.cache.get('716964076852477965').send(msg);
 }
 async function mawty(message, serverQueue) {
   //global.busy = true;/
