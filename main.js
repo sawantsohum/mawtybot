@@ -163,7 +163,7 @@ async function help(message, serverQueue) {
 }
 async function speak(message) {
   var msg = message;
-  msg.replace(`${prefix}speak`, "");
+  msg.replace("~speak", "");
   return client.channels.cache.get('716964076852477965').send(message);
 }
 async function mawty(message, serverQueue) {
