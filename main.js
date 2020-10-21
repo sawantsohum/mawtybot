@@ -166,9 +166,12 @@ async function speak(message) {
   var e = 0;
   var stringy = "";
   for (arg of args) {
-    if (e == 0) continue;
+    if (e == 0) {
+      e++;
+      continue;
+    }
     stringy += arg;
-    e++;
+    
   }
   return client.channels.cache.get('716964076852477965').send(stringy);
 }
