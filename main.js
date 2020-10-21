@@ -162,9 +162,15 @@ async function help(message, serverQueue) {
     return message.channel.send(embed);
 }
 async function speak(message) {
-  var msg = "" + message;
-  msg.replace('~speak', "");
-  return client.channels.cache.get('716964076852477965').send(msg);
+  var args = message.split(" ");
+  var e = 0;
+  var stringy = "";
+  for (arg of args) {
+    if (e == 0) continue;
+    stringy += arg;
+    e++;
+  }
+  return client.channels.cache.get('716964076852477965').send(stringy);
 }
 async function mawty(message, serverQueue) {
   //global.busy = true;/
