@@ -78,7 +78,10 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}shuffle`)) {
     shuffle(message, serverQueue);
     return;
-  } else if (rando > 18) {
+  } else if (message.content.startsWith(`${prefix}speak`)) {
+    speak(message);
+    return;
+  }else if (rando > 18) {
     mawty(message, serverQueue);
     return;
   } else if(message.content.startsWith(`${prefix}`)){
@@ -157,6 +160,9 @@ async function help(message, serverQueue) {
         .setColor('RANDOM')
         .setDescription(`**-=- CommandList -=-**\n${commandList}\n\n`);
     return message.channel.send(embed);
+}
+async function speak(message) {
+  return client.channels.cache.get('716964076852477965').send(message);
 }
 async function mawty(message, serverQueue) {
   //global.busy = true;/
