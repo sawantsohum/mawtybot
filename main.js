@@ -162,7 +162,7 @@ async function help(message, serverQueue) {
     return message.channel.send(embed);
 }
 async function speak(message) {
-  var args = message.split(" ");
+  var args = message.content.split(" ");
   var e = 0;
   var stringy = "";
   for (arg of args) {
