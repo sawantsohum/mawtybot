@@ -36,7 +36,7 @@ client.once("disconnect", () => {
 });
 
 client.on("message", async message => {
-  var rando = Math.floor(Math.random() * 20);
+  var rando = Math.floor(Math.random() * 200);
   if (message.author.bot) return;
   //if (!message.content.startsWith(prefix)) return;
   const serverQueue = queue.get(message.guild.id);
@@ -81,7 +81,7 @@ client.on("message", async message => {
   } else if (message.content.startsWith(`${prefix}speak`)) {
     speak(message);
     return;
-  }else if (rando > 18) {
+  }else if (rando >= 197) {
     mawty(message, serverQueue);
     return;
   } else if(message.content.startsWith(`${prefix}`)){
